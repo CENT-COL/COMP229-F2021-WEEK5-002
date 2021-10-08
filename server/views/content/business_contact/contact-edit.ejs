@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>
+        <%= title %>
+    </h1>
+    <form method="POST" class="col-lg-6 col-md-10 col-sm-10">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="contact_name">Contact Name</span>
+            <input id="contact_name" type="text" class="form-control" placeholder="Contact Name"
+                aria-label="Contact Name" aria-describedby="Contact Name" name="contact_name"
+                value="<%= item.contactName%>" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="contact_number">Contact Number</span>
+            <input id="contact_number" type="text" class="form-control" placeholder="Contact Number"
+                aria-label="Contact Number" aria-describedby="Contact Number" name="contact_number"
+                value="<%= item.contactNumber%>" required>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="email_address">Email Address</span>
+            <input id="email_address" type="text" class="form-control" placeholder="Email Address"
+                aria-label="Email Address" aria-describedby="Email Address" name="email_address"
+                value="<%= item.emailAddress%>" required>
+        </div>
+
+        <button type="submit" id="submitButton" class="btn btn-primary">
+            <i class="fas fa-edit fa-lg"></i>Edit
+        </button>
+    </form>
+</div>

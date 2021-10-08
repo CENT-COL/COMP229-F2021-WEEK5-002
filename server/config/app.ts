@@ -6,17 +6,19 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 
 import indexRouter from '../routes/index';
+import businessContactRouter from '../routes/business_contact/contact';
 
-//Instantiate Mongo
-mongoose.connect("mongodb://localhost:27017/mobile_store");
+//Config MongoDB
+import * as DBConfig from './db';
+mongoose.connect(DBConfig.LocalURI);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function () {
-  console.log("connected to MongoDB at localhost:27017")
+  console.log("connected to MongoDB at " + DBConfig.HostName);
 });
 
-// Instantiate express
+// Config App
 const app = express();
 
 // view engine setup
@@ -31,6 +33,7 @@ app.use(express.static(path.join(__dirname, '../../client')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
 app.use('/', indexRouter);
+app.use('/contact/', businessContactRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
