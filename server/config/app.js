@@ -9,7 +9,7 @@ const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const index_1 = __importDefault(require("./routes/index"));
+const index_1 = __importDefault(require("../routes/index"));
 mongoose_1.default.connect("mongodb://localhost:27017/mobile_store");
 const db = mongoose_1.default.connection;
 db.on('error', console.error.bind(console, 'connection error'));
@@ -17,14 +17,14 @@ db.once('open', function () {
     console.log("connected to MongoDB at localhost:27017");
 });
 const app = (0, express_1.default)();
-app.set('views', path_1.default.join(__dirname, 'views'));
+app.set('views', path_1.default.join(__dirname, '../views'));
 app.set('view engine', 'ejs');
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
-app.use(express_1.default.static(path_1.default.join(__dirname, 'client')));
-app.use(express_1.default.static(path_1.default.join(__dirname, 'node_modules')));
+app.use(express_1.default.static(path_1.default.join(__dirname, '../../client')));
+app.use(express_1.default.static(path_1.default.join(__dirname, '../../node_modules')));
 app.use('/', index_1.default);
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));
