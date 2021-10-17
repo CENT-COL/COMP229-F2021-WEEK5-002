@@ -1,24 +1,24 @@
-import createError, { HttpError } from 'http-errors';
+import createError, { HttpError } from "http-errors";
 import express from 'express';
 import path from 'path';
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
 import logger from 'morgan';
 import mongoose from 'mongoose';
 
 import indexRouter from '../routes/index';
-import businessContactRouter from '../routes/business_contact/contact';
+import contactRouter from '../routes/contact';
 
-//Config MongoDB
+//DB Configuration
 import * as DBConfig from './db';
 mongoose.connect(DBConfig.LocalURI);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function () {
-  console.log("connected to MongoDB at " + DBConfig.HostName);
-});
+  console.log('connected to MongoDB at:' + DBConfig.HostName);
+})
 
-// Config App
+// App Configuration
 const app = express();
 
 // view engine setup
@@ -32,8 +32,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../client')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
+//Router middleware
 app.use('/', indexRouter);
-app.use('/contact/', businessContactRouter);
+app.use('/contact', contactRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
